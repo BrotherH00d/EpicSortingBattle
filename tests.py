@@ -1,4 +1,4 @@
-import os, time, json, sys, math, testDataGenerator as tg
+import os, time, json, sys, math, matplotlib.pyplot as mpl, testDataGenerator as tg
 from inspect import getmembers
 
 def sortsCorrectly(case, algorithm):
