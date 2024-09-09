@@ -1,30 +1,26 @@
 import random, tests
+#items = items.copy()
 
-def bogoSort(items):
-    # Kopier den liste, vi har modtaget som parameter, så vi ikke ændrer den originale
-    items = items.copy()
-    isSorted = None # Boolean til markering af, om listen er sorteret
-    attempts = 0 # Tællevariabel til at holde styr på antal af forsøg
-    while not isSorted:
-        attempts += 1
-        if attempts > len(items) * 5000: # Check for at stoppe tendensen mod uendeligt
-            print('Giver op på grund af for mange forsøg ({}) og bruger TimSort'.format(attempts))
-            items.sort()
-            return items
-        random.shuffle(items) # Bland alle elementer helt tilfældigt
-        isSorted = True # Vi går ud fra at listen tilfældigvis er sorteret,
-        # ...og prøver i denne løkke at bevise det modsatte
-        for index in range(len(items)-1):
-            if items[index] > items[index+1]:
-                isSorted = False
-                break # Bryd løkken hvis et eneste element er forkert sorteret
-    print('Sorteret efter {} forsøg'.format(attempts))
-    return items
 
+def insertionSort(arr):
+    arr = arr.copy()
+    n = len(arr)  # Get the length of the array
+
+    if n <= 1:
+        return arr # hvis der kun er 1 eller mindre (aka 0) elementer så er listen allerede sorteret og derfor er der e return
+
+    for i in range(1, n):  # starter med at chekke det andet element i listen for at senere kunne sammenligne det med det første
+        key = arr[i]  # gemmer det aktuelle element så man kan rykke det
+        j = i - 1
+        while j >= 0 and key < arr[j]:  # cheaker om det element man har nu er støre end det næste. hvis ja gør nedenstående
+            arr[j + 1] = arr[j]  # hvis det element man er ved er støre end det bagved rykker man det aktuelle element en position frem
+            j -= 1
+        arr[j + 1] = key  # flyt elementet til rigtige plads
+    return arr
 
 if __name__ == '__main__':
     ## Skriv navnet på den algoritme, der skal testes
-    algorithm = bogoSort
+    algorithm = insertionSort
 
     passedTest = True
     for i in range(10):
